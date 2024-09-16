@@ -58,7 +58,27 @@ export default class Storage {
       categoryToSave.createdAt = new Date().toISOString();
       savedCategories.push(categoryToSave);
     }
-
     localStorage.setItem("category", JSON.stringify(savedCategories));
+  }
+  static getAllProducts() {
+    const saveProducts = JSON.parse(localStorage.getItem("products")) || [];
+    const sortedProducts = saveProducts.sort((a, b) => {
+      return new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1;
+    });
+    return sortedProducts;
+  }
+  static saveProduct(productToSave) {
+    const savedProducts = Storage.getAllProducts();
+    const existedItem = savedProducts.find((c) => c.id === productToSave.id);
+    if (existedItem) {
+      existedItem.title = productToSave.title;
+      existedItem.quantity = productToSave.quantity;
+      existedItem.category = productToSave.category;
+    } else {
+      productToSave.id = new Date().getTime();
+      productToSave.createdAt = new Date().toISOString();
+      savedProducts.push(productToSave);
+    }
+    localStorage.setItem("products", JSON.stringify(savedProducts));
   }
 }
