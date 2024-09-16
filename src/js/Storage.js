@@ -33,9 +33,6 @@ const categories = [
     createdAt: "2021-10-01T10:47:26.889Z",
   },
 ];
-
-// const  = document.querySelector("#category-title");
-// const  = document.querySelector("#category-description");
 export default class Storage {
   // add new category
   // save category
