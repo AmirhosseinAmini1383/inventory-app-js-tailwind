@@ -33,6 +33,9 @@ const categories = [
     createdAt: "2021-10-01T10:47:26.889Z",
   },
 ];
+
+// const  = document.querySelector("#category-title");
+// const  = document.querySelector("#category-description");
 export default class Storage {
   // add new category
   // save category
@@ -43,5 +46,19 @@ export default class Storage {
       return new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1;
     });
     return sortedCategory;
+  }
+  static saveCategory(categoryToSave) {
+    const savedCategories = Storage.getAllCategories();
+    const existedItem = savedCategories.find((c) => c.id === categoryToSave.id);
+    if (existedItem) {
+      existedItem.title = categoryToSave.title;
+      existedItem.description = categoryToSave.description;
+    } else {
+      categoryToSave.id = new Date().getTime();
+      categoryToSave.createdAt = new Date().toISOString();
+      savedCategories.push(categoryToSave);
+    }
+
+    localStorage.setItem("category", JSON.stringify(savedCategories));
   }
 }
