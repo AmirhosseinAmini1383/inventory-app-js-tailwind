@@ -4,9 +4,11 @@ const productTitle = document.querySelector("#product-title");
 const productQuantity = document.querySelector("#product-quantity");
 const productCategory = document.querySelector("#product-category");
 const addNewProductBtn = document.querySelector("#add-new-product");
+const searchInput = document.querySelector("#search-input");
 class ProductView {
   constructor() {
     addNewProductBtn.addEventListener("click", (e) => this.addNewProduct(e));
+    searchInput.addEventListener("input", (e) => this.searchProducts(e));
     this.Products = [];
   }
   addNewProduct(e) {
@@ -17,7 +19,7 @@ class ProductView {
     if (!title || !quantity || !category) return;
     Storage.saveProduct({ title, quantity, category });
     this.Products = Storage.getAllProducts();
-    this.createProductsList();
+    this.createProductsList(this.Products);
     productTitle.value = "";
     productQuantity.value = "";
     productCategory.value = "";
@@ -25,10 +27,10 @@ class ProductView {
   setApp() {
     this.Products = Storage.getAllProducts();
   }
-  createProductsList() {
+  createProductsList(products) {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     let result = "";
-    this.Products.forEach((item) => {
+    products.forEach((item) => {
       const selectedCategory = Storage.getAllCategories().find(
         (c) => parseInt(c.id) === parseInt(item.category)
       );
@@ -61,6 +63,13 @@ class ProductView {
     });
     const productsDom = document.querySelector("#products-list");
     productsDom.innerHTML = result;
+  }
+  searchProducts(e) {
+    const value = e.target.value.trim().toLowerCase();
+    const filteredProducts = this.Products.filter((item) =>
+      item.title.toLowerCase().trim().includes(value)
+    );
+    this.createProductsList(filteredProducts);
   }
 }
 export default new ProductView();
