@@ -5,10 +5,12 @@ const productQuantity = document.querySelector("#product-quantity");
 const productCategory = document.querySelector("#product-category");
 const addNewProductBtn = document.querySelector("#add-new-product");
 const searchInput = document.querySelector("#search-input");
+const selectedSort = document.querySelector("#sort-products");
 class ProductView {
   constructor() {
     addNewProductBtn.addEventListener("click", (e) => this.addNewProduct(e));
     searchInput.addEventListener("input", (e) => this.searchProducts(e));
+    selectedSort.addEventListener("change", (e) => this.sortProducts(e));
     this.Products = [];
   }
   addNewProduct(e) {
@@ -67,9 +69,14 @@ class ProductView {
   searchProducts(e) {
     const value = e.target.value.trim().toLowerCase();
     const filteredProducts = this.Products.filter((item) =>
-      item.title.toLowerCase().trim().includes(value)
+      item.title.toLowerCase().includes(value)
     );
     this.createProductsList(filteredProducts);
+  }
+  sortProducts(e) {
+    const value = e.target.value;
+    this.Products = Storage.getAllProducts(value);
+    this.createProductsList(this.Products);
   }
 }
 export default new ProductView();
