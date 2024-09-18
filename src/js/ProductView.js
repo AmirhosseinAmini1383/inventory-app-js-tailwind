@@ -54,8 +54,8 @@ class ProductView {
                 >${item.quantity}</span
               >
               <button
-                class="border px-2 py-0.5 rounded-2xl border-red-400 text-red-400"
-                data-id=${item.id}
+                class="delete-product border px-2 py-0.5 rounded-2xl border-red-400 text-red-400"
+                data-product-id=${item.id}
               >
                 delete
               </button>
@@ -65,6 +65,11 @@ class ProductView {
     });
     const productsDom = document.querySelector("#products-list");
     productsDom.innerHTML = result;
+
+    const deleteBtns = [...document.querySelectorAll(".delete-product")];
+    deleteBtns.forEach((btn) => {
+      btn.addEventListener("click", (e) => this.deleteProducts(e));
+    });
   }
   searchProducts(e) {
     const value = e.target.value.trim().toLowerCase();
@@ -76,6 +81,12 @@ class ProductView {
   sortProducts(e) {
     const value = e.target.value;
     this.Products = Storage.getAllProducts(value);
+    this.createProductsList(this.Products);
+  }
+  deleteProducts(e) {
+    const productId = +e.target.dataset.productId;
+    Storage.deleteProduct(productId);
+    this.Products = Storage.getAllProducts();
     this.createProductsList(this.Products);
   }
 }
