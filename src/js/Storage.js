@@ -60,7 +60,7 @@ export default class Storage {
   static getAllProducts(sort = "newest") {
     const saveProducts = JSON.parse(localStorage.getItem("products")) || [];
     const sortedProducts = saveProducts.sort((a, b) => {
-      if (sort === "newest") {
+      if (sort === "newest" || sort === "") {
         return new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1;
       } else if (sort === "oldest") {
         return new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1;

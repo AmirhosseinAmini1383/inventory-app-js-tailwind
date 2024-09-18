@@ -745,11 +745,20 @@ select {
 .mb-6 {
   margin-bottom: 1.5rem;
 }
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .block {
   display: block;
 }
 .flex {
   display: flex;
+}
+.hidden {
+  display: none;
 }
 .h-12 {
   height: 3rem;
@@ -875,6 +884,9 @@ select {
 .font-bold {
   font-weight: 700;
 }
+.font-medium {
+  font-weight: 500;
+}
 .text-red-400 {
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity));
@@ -894,4 +906,8 @@ select {
 .text-slate-500 {
   --tw-text-opacity: 1;
   color: rgb(100 116 139 / var(--tw-text-opacity));
+}
+.text-slate-600 {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity));
 }
