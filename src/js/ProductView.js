@@ -39,7 +39,7 @@ class ProductView {
       );
       result += `
             <div
-              class="flex items-center justify-between mb-2"
+              class="flex items-center justify-between pb-2"
             >
             <span class="text-slate-400">${item.title}</span>
             <div class="flex items-center gap-x-3">
